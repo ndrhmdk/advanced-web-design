@@ -1,0 +1,153 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 650px;
+    padding: 35px 40px;
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.title {
+    color: #2b579a;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 0 30px;
+    text-transform: uppercase;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    width: 130px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.form-group input[type="text"] {
+    flex: 1;
+    padding: 9px 12px;
+    font-size: 17px;
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cfcfcf;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input[type="text"]:focus {
+    border-color: #2b579a;
+    box-shadow: 0 0 0 3px rgba(43, 87, 154, 0.12);
+}
+
+.form-group input[readonly] {
+    background-color: #f1f3f5;
+    border: 1px solid #d0d4d8;
+    color: #555555;
+    font-weight: 600;
+}
+
+.form-group select {
+    width: 70px;
+    padding: 8px 6px;
+    font-size: 17px;
+    color: #2b579a;
+    background-color: #ffffff;
+    border: 1px solid #cfcfcf;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+.form-group select:focus {
+    border-color: #2b579a;
+    box-shadow: 0 0 0 3px rgba(43, 87, 154, 0.12);
+}
+
+.result-status {
+    min-height: 38px;
+    margin: 25px 0;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn {
+    min-width: 110px;
+    padding: 9px 24px;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.ok {
+    background-color: #2b579a;
+}
+
+.ok:hover {
+    background-color: #1f4275;
+}
+
+.cancel {
+    background-color: #6c757d;
+}
+
+.cancel:hover {
+    background-color: #545b62;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+@media (max-width: 700px) {
+    .container {
+        width: 90%;
+        padding: 30px 25px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .form-group label {
+        width: 110px;
+        font-size: 16px;
+    }
+
+    .form-group input[type="text"],
+    .form-group select {
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Điểm của Em</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="title">BẢNG ĐIỂM CỦA EM</div>
+
+        <div class="form-group">
+            <label for="semester1">Semester 1:</label>
+            <input type="text" id="semester1" value="9">
+        </div>
+
+        <div class="form-group">
+            <label for="semester2">Semester 2:</label>
+            <input type="text" id="semester2" value="10">
+        </div>
+
+        <div class="form-group">
+            <label for="year">Year:</label>
+            <select id="year">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="summarize">Summarize:</label>
+            <input type="text" id="summarize" readonly>
+        </div>
+
+        <div class="result-status"></div>
+
+        <div class="button-group">
+            <button class="btn ok" type="button" onclick="process()">OK</button>
+            <button class="btn cancel" type="button" onclick="cancel()">Cancel</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
