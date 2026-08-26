@@ -1,0 +1,37 @@
+body {
+  background-color: #5d9b9b;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  padding: 30px;
+}
+
+input[type="text"] {
+  width: 320px;
+  padding: 6px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  border: 1px solid #777;
+  border-radius: 4px;
+}
+
+input[type="button"] {
+  background-color: #ffffff;
+  color: #cc0000;
+  border: 1px solid #ccc;
+  padding: 6px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 6px;
+}
+
+table {
+  border-collapse: collapse;
+  background-color: #00e5ff;
+  text-align: center;
+  margin-top: 15px;
+}
+
+table, th, td {
+  border: 1.5px solid #333;
+  padding: 6px 12px;
+}

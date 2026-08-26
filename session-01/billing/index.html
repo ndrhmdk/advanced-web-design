@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Order Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <label>Fullname_Customer</label><br>
+    <input type="text" id="name"><br>
+
+    <label>Id_Pro</label><br>
+    <input type="text" id="id"><br>
+
+    <label>Name_Pro</label><br>
+    <input type="text" id="prdname"><br>
+
+    <label>Quantity_Pro</label><br>
+    <input type="text" id="qty"><br>
+
+    <label>Price_Pro</label><br>
+    <input type="text" id="price"><br><br>
+
+    <input type="button" value="Save" onclick="save()">
+    <input type="button" value="Show" onclick="show()">
+    <input type="button" value="Reset" onclick="reset()">
+
+    <br><br>
+
+    <table id="tbl_container">
+        <thead>
+            <tr>
+                <th>Auto_Increment</th>
+                <th>Fullname_Customer</th>
+                <th>Id_Pro</th>
+                <th>Name_Pro</th>
+                <th>Quantity_Pro</th>
+                <th>Price_Pro</th>
+                <th>Discount</th>
+                <th>Amount</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="tbl"></tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
