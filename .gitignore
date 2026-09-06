@@ -1,3 +1,11 @@
 EM3/*
 *test*
 package.json
+
+# Local Setup
+.vscode
+.env.local
+*config*
+
+# description
+*.md

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Staff</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Add New Staff</h1>
+    <form id="form-add">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required placeholder="e.g., Nina West">
+
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" name="gender" required placeholder="e.g., Male">
+
+        <label for="birthday">Birthday</label>
+        <input type="date" id="birthday" name="birthday" required>
+
+        <label for="avatar">Avatar URL:</label>
+        <input type="url" id="avatar" name="avatar" required placeholder="https://avatars.githubusercontent.com/...">
+
+        <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="cancelForm()">Cancel</button>
+            <button type="submit">Add</button>
+        </div>
+    </form>
+
+    <script src="config.js"></script>
+    <script>
+        document.getElementById('form-add').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const selectedDate = document.getElementById('birthday').value;
+            const isoBirthday = selectedDate 
+                ? new Date(selectedDate).toISOString()
+                : new Date().toISOString();
+
+            const newStaff = {
+                name: document.getElementById('name').value,
+                gender: document.getElementById('gender').value,
+                birthday: isoBirthday,
+                avatar: document.getElementById('avatar').value
+            };
+
+            fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newStaff)
+            })
+                .then(() => {
+                    alert('Successfully added!');
+                    window.location.href = 'index.html';
+                }) 
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert('Error occurred while adding new staff.');
+                });
+        });
+
+        function cancelForm() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

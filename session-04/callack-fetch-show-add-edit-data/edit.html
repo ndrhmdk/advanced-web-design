@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Staff</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Editing Staff Info</h1>
+    <form id="form-editted">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" name="gender" required>
+
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday" required>
+
+        <label for="avatar">Avatar URL: </label>
+        <input type="text" id="avatar" name="avatar" required>
+
+        <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="cancelForm()">Cancel</button>
+            <button type="submit">Update</button>
+        </div>
+    </form>
+    <script src="config.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+
+        fetch(`${API_URL}/${id}`)
+            .then(response => {
+                if (!response.ok) throw new Error("Cannot fetch this staff's information");
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('name').value = data.name || '';
+                document.getElementById('gender').value = data.gender || '';
+                document.getElementById('avatar').value = data.avatar || '';
+
+                if (data.birthday) {
+                    const dateFormatted = new Date(data.birthday).toISOString().split('T')[0];
+                    document.getElementById('birthday').value = dateFormatted;
+                }
+            })
+            .catch(error => {
+                console.error('Error while fetching information:', error);
+            });
+
+        document.getElementById('form-editted').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const selectedDate = document.getElementById('birthday').value;
+            const isoBirthday = selectedDate
+                ? new Date(selectedDate).toISOString()
+                : new Date().toISOString();
+
+            const updatedStaff = {
+                name: document.getElementById('name').value,
+                gender: document.getElementById('gender').value,
+                avatar: document.getElementById('avatar').value,
+                birthday: isoBirthday
+            };
+
+            fetch(`${API_URL}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedStaff)
+            })
+                .then(() => {
+                    alert('Successfully updated!');
+                    window.location.href = 'index.html';
+                })
+                .catch(error => {
+                    console.error('Error while updating:', error);
+                    alert('Error occured while updating information.');
+                });
+        });
+
+        function cancelForm() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
