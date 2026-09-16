@@ -1,0 +1,367 @@
+:root {
+    --ink: #111111;
+    --paper: #ffffff;
+    --mist: #f5f7fb;
+    --line: #dfe3ea;
+    --muted: #6b7280;
+    --orange: #F2765E; 
+    --orange-dark: #EC5B38;
+    --content-width: 1280px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.section {
+    padding: 5rem 0;
+}
+
+.section-muted {
+    background: var(--mist);
+}
+
+.eyebrow {
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background:rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+}
+
+.navbar {
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+nav {
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.tour-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(240px, 1fr)
+        );
+    gap: 1.5rem;
+}
+
+.tour-card {
+    display: flex;
+    flex-direction: column;
+    background: #eef3fb;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 0.25s ease;
+}
+
+.tour-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+.tour-image-wrapper {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #ddd;
+}
+
+
+.tour-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+
+.tour-card:hover .tour-image {
+    transform: scale(1.05);
+}
+
+
+.tour-content {
+    padding: 1.1rem;
+    flex: 1;
+}
+
+
+.tour-id {
+    color: #34517a;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+
+.tour-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+}
+
+
+.tour-description {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+
+.tour-dates {
+    display: grid;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+
+.tour-price {
+    display: block;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+
+.book-button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    background: var(--orange-dark);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+
+.book-button:hover {
+    background: var(--orange-dark);
+}
+
+.management-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+}
+
+.tour-form {
+    background: white;
+    border: 1px solid var(--line);
+    padding: 2rem;
+}
+
+.tour-form h3 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    display: grid;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--line);
+    background: white;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--ink);
+}
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.form-row {
+    display: block;
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: white;
+    color: var(--ink);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--ink);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    background: white;
+    border: 1px solid var(--line);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 950px;
+}
+
+thead {
+    background: var(--ink);
+    color: white;
+}
+
+th,
+td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+th {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+tbody tr:hover {
+    background: var(--mist);
+}
+
+.table-image {
+    width: 65px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.table-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-button {
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--ink);
+    background: transparent;
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background: var(--ink);
+    color: white;
+}
+
+.footer {
+    background: var(--ink);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 600px) {
+
+    .section {
+        padding: 3rem 0;
+    }
+
+    nav {
+        gap: 0.8rem;
+    }
+}
