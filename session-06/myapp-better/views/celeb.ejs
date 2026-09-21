@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Spotlight — Celebrity Directory</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/directory.js" defer></script>
+</head>
+<body>
+    <header class="site-header shell">
+        <a class="brand" href="/celebs"><span class="brand-icon" aria-hidden="true">✳</span> the spotlight<span class="brand-dot">.</span></a>
+        <span class="edition">THE PEOPLE EDITION ↗</span>
+    </header>
+    <main class="shell">
+        <section class="hero">
+            <div><p class="eyebrow">● &nbsp; A LITTLE CLOSER TO THE SPOTLIGHT</p><h1>Big names.<br><em>Bigger stories.</em></h1><p class="intro">A collection of familiar faces and remarkable fortunes.<br>Explore the people behind the names.</p></div>
+            <aside class="hero-note"><span class="note-star" aria-hidden="true">✳</span><p>Fame has a face.<br>Get to know it.</p><span class="note-caption">YOUR CELEBRITY DIRECTORY</span></aside>
+        </section>
+        <section class="directory" aria-labelledby="directory-title">
+            <div class="section-top"><h2 id="directory-title">In the spotlight <span class="count"><%= celebs.length %></span></h2><span class="section-caption">A FEW NAMES YOU MIGHT KNOW</span></div>
+            <div class="toolbar">
+                <div class="search-field"><span aria-hidden="true">⌕</span><label class="sr-only" for="search">Search celebrities</label><input id="search" type="search" placeholder="Find a familiar face…" autocomplete="off"></div>
+                <div class="sort-field"><label for="sort">Sort by</label><select id="sort"><option value="featured">Featured</option><option value="name">Name: A–Z</option><option value="worth">Net worth: high to low</option></select></div>
+            </div>
+            <div class="card-grid" id="cards">
+                <% const compact = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }); %>
+                <% celebs.forEach((p, index) => { %>
+                    <a class="celeb-card tone-<%= index % 4 %>" href="/celebs/<%= p.id %>" data-name="<%= p.name %>" data-worth="<%= p.netWorth %>" data-order="<%= index %>">
+                        <div class="card-art"><span class="card-number">NO. <%= String(index + 1).padStart(2, '0') %></span><span class="initials" aria-hidden="true"><%= p.name.split(' ').map(word => word[0]).join('') %></span><span class="art-caption">THE SPOTLIGHT COLLECTION</span><span class="art-star" aria-hidden="true">✳</span></div>
+                        <div class="card-body"><h3><%= p.name %></h3><div class="worth-row"><div><span class="worth-label">NET WORTH</span><strong>$<%= compact.format(p.netWorth) %></strong></div><span class="card-arrow" aria-hidden="true">↗</span></div><span class="profile-link">Explore profile <span aria-hidden="true">→</span></span></div>
+                    </a>
+                <% }) %>
+            </div>
+            <p class="empty-state" id="empty" hidden>No familiar faces found. Try another name.</p>
+            <p class="results" id="results" role="status">Showing all <%= celebs.length %> profiles</p>
+        </section>
+    </main>
+    <footer class="shell footer"><span>Good company. Interesting numbers.</span><span>THE SPOTLIGHT ✳ CLASSROOM EDITION</span><small>Net worth figures are sample project data.</small></footer>
+</body>
+</html>

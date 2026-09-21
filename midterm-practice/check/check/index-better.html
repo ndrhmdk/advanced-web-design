@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="css/style-better.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Top header action -->
+        <div class="top-bar">
+            <h1>Product Catalog</h1>
+            <button id="open-add-btn" class="btn-primary">+ Add New Product</button>
+        </div>
+
+        <!-- Pop-up Modal Container (Hidden by default) -->
+        <div class="modal-backdrop" id="modal-backdrop">
+            <div class="modal-content">
+                <span class="modal-close" id="modal-close-btn">&times;</span>
+                <form class="form-container" id="product-form">
+                    <h2 id="form-title">Add New Product</h2>
+
+                    <input type="hidden" id="id">
+                    
+                    <label>Product name: </label>
+                    <input type="text" id="name" required>
+
+                    <label>Product Image URL:</label>
+                    <input type="text" id="image" required>
+
+                    <label>Description:</label>
+                    <textarea id="description" required></textarea>
+
+                    <label>Quantity:</label>
+                    <input type="number" id="quantity" required>
+
+                    <label>Price (USD):</label>
+                    <input type="number" id="price" step="0.01" required>
+
+                    <button type="submit" id="submit-btn">Save Product</button>
+                    <button type="button" id="cancel-btn">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <h2>Product List (Grid View)</h2>
+        <div class="grid-container" id="product-grid">
+            <!-- JS render -->
+        </div>
+
+        <h2>Product List (Table View)</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="product-table">
+                    <!-- JS render -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="js/script-better.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+const API_URL = 'https://6a9b86aa0ad174e139e8b25f.mockapi.io/andrapi/staffs';

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= celeb ? celeb.name : 'Profile not found' %> — The Spotlight</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header class="site-header shell"><a class="brand" href="/celebs"><span class="brand-icon" aria-hidden="true">✳</span> the spotlight<span class="brand-dot">.</span></a><span class="edition">THE PEOPLE EDITION ↗</span></header>
+    <main class="shell detail-main">
+        <a class="back-link" href="/celebs">← Back to the collection</a>
+        <% if (celeb) { %>
+            <article class="detail-panel tone-<%= (celeb.id - 1) % 4 %>">
+                <div class="card-art detail-art"><span class="card-number">IN THE SPOTLIGHT</span><span class="initials" aria-hidden="true"><%= celeb.name.split(' ').map(word => word[0]).join('') %></span><span class="art-caption">THE SPOTLIGHT COLLECTION</span><span class="art-star" aria-hidden="true">✳</span></div>
+                <div class="detail-copy"><p class="eyebrow">THE CELEBRITY PROFILE</p><h1><%= celeb.name %></h1><div class="detail-worth"><span class="worth-label">NET WORTH</span><strong><%= new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(celeb.netWorth) %></strong><p>US dollars · Sample project data</p></div><a class="button" href="/celebs">Discover more names ↗</a></div>
+            </article>
+        <% } else { %>
+            <section class="not-found"><p class="eyebrow">404 / OUT OF THE SPOTLIGHT</p><h1>A missing face.</h1><p>We couldn’t find that celebrity profile.</p><a class="button" href="/celebs">Explore the collection →</a></section>
+        <% } %>
+    </main>
+</body>
+</html>
