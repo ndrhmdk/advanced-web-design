@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Bảng tính hình vuông</h2>
+    <form action="/squareCal" method="POST">
+        <label for="iSideLength">Nhập vào chiều dài:</label>
+        <input type="number" name="sideLength">
+        <button type="submit">Calculate</button>
+    </form>
+
+    <% if ( resultP != null || resultArea != null) { %>
+        <h2>Perimeter: <%= resultP %> </h2>
+        <h2>Area: <%= resultArea %> </h2>
+
+    <% } %>
+
+</body>
+</html>

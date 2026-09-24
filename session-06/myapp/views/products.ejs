@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!-- <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -12,5 +12,118 @@
             <li><a href="/products/<%= p.id %>"><%= p.name %> - $<%= p.price %></a></li>
         <% }); %>
     </ul>
+
+    <form action="/products" method="POST">
+        <input type="text" name="name" placeholder="Product name" required>
+        <input type="number" name="price" placeholder="Price" required>
+        <button type="submit">Add Product</button>
+    </form>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm — Catalog</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="/products" class="logo">STOREFRONT.</a>
+            <nav class="nav-links">
+                <a href="/products">Sản phẩm</a>
+                <a href="#new-product">Thêm mới</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="section">
+        <div class="container">
+            <p class="eyebrow">Kho hàng & Danh mục</p>
+            <h2>Danh mục sản phẩm</h2>
+
+            <!-- Product Grid using .project-card -->
+            <div class="projects-grid">
+                <% products.forEach((p, index) => { 
+                    const tones = ['a', 'b', 'c', 'd'];
+                    const tone = tones[index % tones.length];
+                %>
+                    <article class="project-card">
+                        <div class="project-visual" data-tone="<%= tone %>">
+                            <% if (p.photo) { %>
+                                <img class="product-photo" src="<%= p.photo %>" alt="<%= p.name %>" loading="lazy" onerror="this.hidden = true">
+                            <% } %>
+                            <span class="project-visual-label">#SKU-<%= p.id %></span>
+                        </div>
+                        <div class="project-content">
+                            <span class="project-type">Hardware</span>
+                            <h3><%= p.name %></h3>
+                            <p>Đơn giá hiện hành niêm yết theo danh mục thiết bị.</p>
+                            
+                            <div class="project-tags">
+                                <span>$<%= p.price.toLocaleString() %> USD</span>
+                                <span>In Stock</span>
+                            </div>
+
+                            <div class="project-actions">
+                                <a href="/products/<%= p.id %>" class="text-link">
+                                    Chi tiết sản phẩm <span>&rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                <% }); %>
+            </div>
+
+            <!-- Add Product Section -->
+            <section id="new-product" class="form-card" aria-labelledby="new-product-title">
+                <div class="form-intro">
+                    <p class="eyebrow">Quản trị kho</p>
+                    <h3 id="new-product-title">Thêm sản phẩm mới</h3>
+                    <p>Điền tên và giá để thêm sản phẩm vào danh mục.</p>
+                </div>
+
+                <form action="/products" method="POST" class="product-form">
+                    <div class="form-fields">
+                    <div class="form-group">
+                        <label for="name">Tên sản phẩm</label>
+                        <input type="text" id="name" name="name" class="input-field" placeholder="Ví dụ: Mac Studio" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Giá (USD)</label>
+                        <input type="number" id="price" name="price" class="input-field" placeholder="1999.00" required min="1" step="0.01" inputmode="decimal" aria-describedby="price-hint">
+                        <p id="price-hint" class="field-hint">Tối thiểu 1 USD. Có thể nhập phần thập phân.</p>
+                    </div>
+                        <div class="form-group form-group-wide">
+                            <label for="photo">URL hình ảnh (không bắt buộc)</label>
+                            <input type="url" id="photo" name="photo" class="input-field" placeholder="https://example.com/product.jpg" pattern="https?://.+" aria-describedby="photo-hint">
+                            <p id="photo-hint" class="field-hint">Dán liên kết trực tiếp đến ảnh, bắt đầu bằng http:// hoặc https://.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <p>Tên sản phẩm và giá là bắt buộc.</p>
+                        <button type="submit" class="btn">
+                            <span aria-hidden="true">+</span> Tạo sản phẩm
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 STOREFRONT. Minimalist Commerce System.</p>
+        </div>
+    </footer>
 </body>
 </html>

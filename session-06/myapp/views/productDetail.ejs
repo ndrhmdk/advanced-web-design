@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product ? product.name : '404 Không tìm thấy' %></title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container navbar">
+            <a href="/products" class="logo">STOREFRONT.</a>
+            <nav class="nav-links">
+                <a href="/products">&larr; Quay lại danh sách</a>
+            </nav>
+        </div>
+    </header>
+
+    <% if (product) { %>
+        <section class="detail-hero">
+            <div class="container">
+                <p class="eyebrow">Thông tin chi tiết</p>
+                <h1><%= product.name %></h1>
+                <p class="detail-summary">Chi tiết thông số kĩ thuật và giá bán niêm yết trên toàn hệ thống.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container detail-grid">
+                <aside class="detail-sidebar">
+                    <div>
+                        <h2>Mã định danh</h2>
+                        <p>#<%= product.id %></p>
+                    </div>
+                    <div>
+                        <h2>Đơn giá</h2>
+                        <p style="font-size: 1.5rem; font-weight: 800; color: var(--ink);">
+                            $<%= product.price.toLocaleString() %> USD
+                        </p>
+                    </div>
+                    <div>
+                        <h2>Tình trạng</h2>
+                        <p>Sẵn sàng bàn giao</p>
+                    </div>
+                </aside>
+
+                <div class="detail-body">
+                    <% if (product.photo) { %>
+                        <img class="detail-photo" src="<%= product.photo %>" alt="<%= product.name %>" onerror="this.hidden = true">
+                    <% } %>
+                    <h2>Mô tả sản phẩm</h2>
+                    <p>
+                        Sản phẩm <strong><%= product.name %></strong> được kiểm định theo tiêu chuẩn công nghiệp.
+                        Hỗ trợ bảo hành chính hãng và đồng bộ với hệ sinh thái phần cứng tiêu chuẩn.
+                    </p>
+                    <div class="detail-placeholder">
+                        <p class="eyebrow">Thông số kỹ thuật</p>
+                        <p>Thông số bo mạch, hiệu năng và vật liệu gia công hiển thị tại đây.</p>
+                    </div>
+                    <div>
+                        <a href="/products" class="btn">Quay lại danh mục</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <% } else { %>
+        <section class="detail-hero">
+            <div class="container">
+                <p class="eyebrow">Lỗi 404</p>
+                <h1>Không tìm thấy</h1>
+                <p class="detail-summary">Mã sản phẩm bạn tìm kiếm không tồn tại hoặc đã bị gỡ bỏ.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="/products" class="btn">Về trang chủ</a>
+                </div>
+            </div>
+        </section>
+    <% } %>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 STOREFRONT. Minimalist Commerce System.</p>
+        </div>
+    </footer>
+</body>
+</html>

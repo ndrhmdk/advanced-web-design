@@ -5,6 +5,9 @@ const port = 3000;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.urlencoded({ extended: true }))
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Import and attach the product router.
 const productRouter = require('./routes/product');

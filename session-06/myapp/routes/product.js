@@ -8,4 +8,7 @@ router.get('/', productController.getProducts);
 // GET: product details by ID
 router.get('/:id', productController.getProductById);
 
+// POST: add new product
+router.post('/', productController.addProduct);
+
 module.exports = router;
