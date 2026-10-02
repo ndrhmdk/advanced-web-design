@@ -1,0 +1,10 @@
+<div class="product-card">
+    <% if (product.tag) { %>
+        <span class="tag">
+            <%= product.tag %>
+        </span>
+    <% } %>
+    <h3><%= product.name %></h3>
+    <p class="price">$<%= product.price %></p>
+    <button>Buy now</button>
+</div>

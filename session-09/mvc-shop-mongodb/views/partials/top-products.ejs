@@ -1,0 +1,11 @@
+<section class="product-section">
+    <h2>Top Products</h2>
+    <div class="product-list">
+        <% if (products.length === 0) { %>
+            <p>No top products found.</p>
+        <% } %>
+        <% products.forEach(product => { %>
+            <%- include("product-card", { product }) %>
+        <% }) %>
+    </div>
+</section>
