@@ -1,47 +1,28 @@
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const Product = require("./models/productModel");
+﻿const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const path = require('path');
+const Product = require('./models/productModel');
+const products = require('./products.json');
+const legacyNames = ['Sample Women Top', 'Sample Men Shirt', 'Sample Jacket', 'Sample Shoes'];
 
-dotenv.config();
-
-const products = [
-    {
-        name: "Sample Women Top",
-        price: 45,
-        tag: "new",
-        type: "new"
-    },
-    {
-        name: "Sample Men Shirt",
-        price: 55,
-        type: "new"
-    },
-    {
-        name: "Sample Jacket",
-        price: 120,
-        tag: "hot",
-        type: "top"
-    },
-    {
-        name: "Sample Shoes",
-        price: 80,
-        type: "top"
-    }
-];
+dotenv.config({ path: path.join(__dirname, '.env'), quiet: true });
 
 async function seedDatabase() {
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log('MongoDB connected');
-        
-        await Product.deleteMany();
-
-        await Product.insertMany(products);
-        console.log('Product insered successfully.')
+        for (const [index, product] of products.entries()) {
+            await Product.findOneAndUpdate(
+                { name: { $in: [product.name, legacyNames[index]] } },
+                { $set: product },
+                { upsert: true, runValidators: true }
+            );
+        }
+        console.log('Cake products seeded successfully.');
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
+        process.exitCode = 1;
     } finally {
-        await mongoose.connection.close(); 
+        await mongoose.connection.close();
     }
 }
 

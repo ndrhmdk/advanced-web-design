@@ -1,0 +1,6 @@
+[
+    { "name": "Fruit Cake", "price": 45, "image": "Fruit-Cake.jpg", "tag": "new", "type": "new" },
+    { "name": "Matcha Mousse", "price": 55, "image": "MATCHA-MOUSSE.jpg", "tag": null, "type": "new" },
+    { "name": "Mango Mousse Cake", "price": 120, "image": "mango-mousse-cake.jpg", "tag": "hot", "type": "top" },
+    { "name": "Macarons", "price": 80, "image": "Macaron9.jpg", "tag": null, "type": "top" }
+]
