@@ -1,0 +1,41 @@
+<%- include('layout/header') %>
+
+<div class="container" style="max-width: 600px;">
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-header bg-white py-3 border-bottom">
+            <h4 class="mb-0 fw-bold"><i class="bi bi-pencil-square me-2 text-warning"></i>Update product information</h4>
+        </div>
+        <div class="card-body p-4">
+            <form action="/edit/<%= product._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Product name</label>
+                    <input type="text" name="name" class="form-control" value="<%= product.name %>" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-semibold">Price ($)</label>
+                        <input type="number" step="0.01" name="price" class="form-control" value="<%= product.price %>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-semibold">Quantity in stock</label>
+                        <input type="number" name="quantity" class="form-control" value="<%= product.quantity %>" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Product image</label>
+                    <div class="mb-2">
+                        <img src="<%= product.image %>" class="img-thumbnail" style="max-height: 120px;" alt="<%= product.name %>">
+                    </div>
+                    <label class="form-label text-muted small">Upload new image (leave blank if doesn't need changes)</label>
+                    <input type="file" name="image" class="form-control" accept="image/*">
+                </div>
+                <div class="d-flex justify-content-between pt-2">
+                    <a href="/" class="btn btn-light"><i class="bi bi-arrow-left"></i> Back</a>
+                    <button type="submit" class="btn btn-warning px-4 text-white"><i class="bi bi-check-lg me-1"></i> Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('layout/footer') %>
