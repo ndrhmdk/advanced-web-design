@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Demo - CRUD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
+
+        .thumb {
+            height: 180px;
+            object-fit: cover;
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Shop Demo — CRUD (Node.js + Sequelize + Multer)</h1>
+
+        <!-- Form Section -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <form id="productForm" enctype="multipart/form-data">
+                    <input type="hidden" id="productId" name="productId" value="">
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <input class="form-control" id="name" name="name" placeholder="Tên sản phẩm" required>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="Giá" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" id="description" name="description" placeholder="Mô tả">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Thêm</button>
+                        <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Product List Grid -->
+        <div id="productsList" class="row gy-3"></div>
+    </div>
+
+    <script>
+        const API_BASE = '/api/products';
+
+        // DOM Elements
+        const productForm = document.getElementById('productForm');
+        const productIdInput = document.getElementById('productId');
+        const submitBtn = document.getElementById('submitBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const productsList = document.getElementById('productsList');
+
+        // Utility: Stop XSS attack
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Reset Form to the original status from the start
+        function resetForm() {
+            productForm.reset();
+            productIdInput.value = '';
+            submitBtn.textContent = 'Thêm';
+        }
+
+        // Load product list
+        async function fetchProducts() {
+            try {
+                const res = await fetch(API_BASE);
+                const data = await res.json();
+
+                if (!data.success) {
+                    alert('Lỗi khi tải danh sách: ' + (data.message || 'Unknown error'));
+                    return;
+                }
+
+                renderProducts(data.products || []);
+            } catch (err) {
+                console.error('Fetch error:', err);
+                alert('Không thể kết nối đến máy chủ.');
+            }
+        }
+
+        // Show list product card 
+        function renderProducts(products) {
+            productsList.innerHTML = '';
+
+            if (products.length === 0) {
+                productsList.innerHTML = '<div class="col-12 text-muted">Chưa có sản phẩm nào.</div>';
+                return;
+            }
+
+            products.forEach((p) => {
+                const card = document.createElement('div');
+                card.className = 'col-md-4 col-lg-3';
+
+                const safeName = escapeHtml(p.name);
+                const safeDesc = escapeHtml(p.description);
+                const formattedPrice = Number(p.price || 0).toLocaleString();
+                const imgTag = p.image ?
+                    `<img src="/uploads/${encodeURIComponent(p.image)}" class="card-img-top thumb" alt="${safeName}">` :
+                    `<div class="bg-secondary-subtle thumb d-flex align-items-center justify-content-center text-muted">No image available</div>`;
+
+                card.innerHTML = `
+            <div class="card h-100 shadow-sm">
+                ${imgTag}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">${safeName}</h5>
+                    <p class="card-text text-muted flex-grow-1">${safeDesc}</p>
+                    <p class="fw-bold text-primary mb-3">${formattedPrice} ₫</p>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-warning w-50" onclick="editProduct(${p.id})">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger w-50" onclick="deleteProduct(${p.id})">Delete</button>
+                    </div>
+                </div>
+            </div>`;
+                productsList.appendChild(card);
+            });
+        }
+
+        // Get product details for editing
+        async function editProduct(id) {
+            try {
+                const res = await fetch(`${API_BASE}/${id}`);
+                const data = await res.json();
+
+                if (!data.success) {
+                    alert('Cannot find product.');
+                    return;
+                }
+
+                const p = data.product;
+                productIdInput.value = p.id;
+                document.getElementById('name').value = p.name;
+                document.getElementById('price').value = p.price;
+                document.getElementById('description').value = p.description || '';
+                submitBtn.textContent = 'Update';
+
+                // Cuộn nhẹ lên form khi nhấn sửa
+                productForm.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            } catch (err) {
+                console.error('Edit error:', err);
+                alert('Error while fetching product details.');
+            }
+        }
+
+        // Xóa sản phẩm
+        async function deleteProduct(id) {
+            if (!confirm('Do you really want to delete this product?')) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/${id}`, {
+                    method: 'DELETE'
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    fetchProducts();
+                } else {
+                    alert('Delete fail: ' + (data.message || 'Undefined error.'));
+                }
+            } catch (err) {
+                console.error('Delete error:', err);
+                alert('Error while deleting product.');
+            }
+        }
+
+        // Submit form (Create new or Edit)
+        productForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const id = productIdInput.value;
+            const formData = new FormData(productForm);
+
+            // If input file empty while updating then delete field to avoid sending empty file
+            const fileInput = document.getElementById('image');
+            if (!fileInput.files.length) {
+                formData.delete('image');
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+
+            try {
+                const url = id ? `${API_BASE}/${id}` : API_BASE;
+                const method = id ? 'PUT' : 'POST';
+
+                const res = await fetch(url, {
+                    method,
+                    body: formData
+                });
+                const data = await res.json();
+
+                if (!data.success) {
+                    alert('Error: ' + (data.message || 'Operation failed!'));
+                    return;
+                }
+
+                resetForm();
+                fetchProducts();
+            } catch (err) {
+                console.error('Submit error:', err);
+                alert('Error while connecting to the server.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = productIdInput.value ? 'Update' : 'Thêm';
+            }
+        });
+
+        // Reset button
+        resetBtn.addEventListener('click', resetForm);
+
+        // Fetch product.
+        fetchProducts();
+    </script>
+</body>
+
+</html>
